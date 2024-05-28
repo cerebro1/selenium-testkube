@@ -1,5 +1,6 @@
 package com.example;
 
+import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -68,13 +69,16 @@ public class SeleniumTest {
             WebElement about = driver.findElement(By.linkText("About"));
             about.click();
             System.out.println("Finished test");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
             if (driver != null) {
                 System.out.println("endi session..");
                 driver.quit();
             }
+        } catch (Exception e) {
+            if (driver != null) {
+                System.out.println("endi session..");
+                driver.quit();
+            }
+            fail(e);
         }
     }
 }
