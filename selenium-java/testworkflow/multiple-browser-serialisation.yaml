@@ -1,7 +1,7 @@
 kind: TestWorkflow
 apiVersion: testworkflows.testkube.io/v1
 metadata:
-  name: test102
+  name: selenium-multiple-browser-serial-test
   namespace: testkube
 spec:
   content:
