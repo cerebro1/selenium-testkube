@@ -11,7 +11,7 @@ spec:
       - selenium-java
   services:
     chrome:
-      logs: "true"
+      logs: always
       image: selenium/standalone-chrome:4.21.0-20240517
       readinessProbe:
         httpGet:
@@ -19,7 +19,7 @@ spec:
           port: 4444
         periodSeconds: 1
     edge:
-      logs: "true"
+      logs: always
       image: selenium/standalone-edge:4.21.0-20240517
       readinessProbe:
         httpGet:
@@ -27,7 +27,7 @@ spec:
           port: 4444
         periodSeconds: 1
     firefox:
-      logs: "true"
+      logs: always
       image: selenium/standalone-firefox:4.21.0-20240517
       readinessProbe:
         httpGet:
