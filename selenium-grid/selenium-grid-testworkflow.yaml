@@ -1,0 +1,31 @@
+apiVersion: testworkflows.testkube.io/v1
+kind: TestWorkflow
+metadata:
+  name: selenium-test-grid
+  namespace: testkube
+  labels:
+	docs: example
+spec:
+ content:
+   git:
+     uri: https://github.com/cerebro1/selenium-testkube.git
+     paths:
+     - selenium-grid #git repo and path that contains Selenium test
+ steps:
+	- name: Install Dependencies and Run Selenium Test
+  	workingDir: /data/repo/selenium-grid #Mount point for the repo
+  	run:
+    	image: python:3.9
+    	env:
+      	- name: SELENIUM_HUB_URL
+        	value: 'http://selenium-grid-testkube-selenium-hub.testkube:4444/wd/hub' #Selenium Grid URL available as K8s service
+    	command: ["sh"]
+    	args:
+      	- "-c"
+      	- |
+        	pip install selenium pytest pytest-html
+        	pytest test_google.py --html=/data/test-results/selenium-report.html --self-contained-html --log-cli-level=INFO
+  	artifacts:
+    	paths:
+      	- /data/test-results/selenium-report.html
+      	- /data/test-results/google_screenshot.png
